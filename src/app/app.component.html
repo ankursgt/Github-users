@@ -1,6 +1,6 @@
 <label for="search">
   </label>
-<input #in type="text" placeholder="search a user" (click)="toggleDropDown()" (keyup)="searchUser(in.value)">
+<input #in type="text" placeholder="search a user" (click)="toggleDropDown()" (keyup)="this.cue.next(in.value)">
 <button (click)="getAllUsers()">Get All Users</button>
 <div class="user" *ngFor = 'let r of repos'>{{r.name}}</div>
 <div *ngIf='showDropDown' class="dropdown">

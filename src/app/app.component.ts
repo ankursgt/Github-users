@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'my-app',
@@ -20,9 +22,11 @@ export class AppComponent  {
     follow='';
     imgurl='';
     tkn;
+    cue = new Subject<string>();
 
     
   constructor(private http: HttpClient){
+    this.cue.pipe(debounceTime(1000)).subscribe(v=>{this.searchUser(v)});
     
   }
 
@@ -36,6 +40,7 @@ export class AppComponent  {
 
 //Search a user
   searchUser(value){
+    console.log("request at: ", new Date().toUTCString());
     this.showDropDown = true;
 
     if(this.flag==0){
